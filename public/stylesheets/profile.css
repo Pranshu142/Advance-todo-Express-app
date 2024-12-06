@@ -92,6 +92,101 @@ html {
   background-color: #ff8364;
   transform: translateY(-2px);
 }
+.user-update-info-background-blur {
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent dark overlay */
+  backdrop-filter: blur(15px); /* Smooth blur effect */
+  z-index: 99;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-info-update-fixed {
+  position: relative;
+  background: linear-gradient(145deg, #1d1a1aba, #424040); /* Subtle gradient */
+  border-radius: 20px; /* Rounded edges */
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3); /* Soft shadow */
+  padding: 30px;
+  width: 400px;
+  max-width: 90%;
+}
+
+.modal-heading {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #c4b8b8;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1rem;
+  color: #dbc2c2;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #4caf50; /* Highlight border on focus */
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.5); /* Subtle green glow */
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.form-actions button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.btn-submit {
+  background-color: #4caf50;
+  color: white;
+}
+
+.btn-submit:hover {
+  background-color: #43a047;
+  transform: scale(1.05); /* Slight grow effect */
+}
+
+.btn-cancel {
+  background-color: #f44336;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background-color: #e53935;
+  transform: scale(1.05); /* Slight grow effect */
+}
+
+#user-info-update-btn:hover {
+  cursor: pointer;
+}
 
 /* Task Info Boxes */
 .right-nav {

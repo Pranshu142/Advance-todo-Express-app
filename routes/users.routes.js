@@ -82,7 +82,7 @@ router.post("/login", async (req, res) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
     });
-    res.redirect(`/users/${user.username}/create`);
+    res.redirect(`/users/${user._id}/create`);
   } catch (error) {
     console.error("Error during login:", error);
     res.status(500).json({ error: "Server error" });
@@ -100,15 +100,15 @@ router.post("/logout", (req, res) => {
   res.status(200).json({ success: "successfully logged out" });
 });
 
-router.get("/:username/collections", authorization, async (req, res) => {
-  if (req.user.username !== req.params.username) {
+router.get("/:userId/collections", authorization, async (req, res) => {
+  if (req.user.userId !== req.params.userId) {
     return res
       .status(403)
       .json({ error: "Not authorized to access this page" });
   }
 
   try {
-    const user = await userSchema.findOne({ username: req.user.username });
+    const user = await userSchema.findById(req.params.userId);
     if (!user) {
       return res.status(404).send("User not found");
     }
@@ -160,22 +160,61 @@ router.post("/tasks/:taskId/updateStatus", async (req, res) => {
   }
 });
 
-router.get("/:username/create", authorization, function (req, res) {
-  if (req.user.username !== req.params.username) {
+router.post("/update", authorization, async (req, res) => {
+  const { username, email, password } = req.body;
+
+  if (!username || !email || !password) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+
+  try {
+    const user = await userSchema.findById(req.user.userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Update the user details
+    user.username = username;
+    user.email = email;
+    user.password = password; // Ensure password is hashed in your user schema
+    await user.save();
+
+    res.status(200).json({ message: "User information updated successfully" });
+  } catch (error) {
+    console.error("Error updating user information:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+router.get("/:userId/create", authorization, async (req, res) => {
+  if (req.user.userId !== req.params.userId) {
     return res
       .status(403)
       .json({ error: "Not authorized to access this page" });
   }
-  res.render("taskCreator", { username: req.user.username });
+  try {
+    const user = await userSchema.findOne({ _id: req.params.userId });
+    if (!user) {
+      return res.status(403).json({ error: "user not found." });
+    }
+
+    res.render("taskCreator", {
+      username: user.username,
+      user,
+    });
+  } catch (error) {
+    console.error("Error fetching tasks:", error);
+    res.status(500).send("Server error");
+  }
 });
 
 // user route to save the task at the backend and display the task in the user profile
-router.post("/:username/tasks", authorization, async (req, res) => {
+router.post("/:userId/tasks", authorization, async (req, res) => {
   const { title, content } = req.body;
   // console.log({ title: title, content: content });
 
   try {
-    const user = await userSchema.findOne({ username: req.user.username });
+    const user = await userSchema.findOne({ _id: req.params.userId });
     if (!user) return res.status(404).json({ error: "User not found" });
     user.tasks.push({ title, content });
     await user.save();
@@ -186,14 +225,14 @@ router.post("/:username/tasks", authorization, async (req, res) => {
   }
 });
 
-router.get("/:username/profile", authorization, async (req, res) => {
+router.get("/:userId/profile", authorization, async (req, res) => {
   // Check if the username in the token matches the username in the URL
-  if (req.user.username !== req.params.username) {
+  if (req.user.userId !== req.params.userId) {
     return res.status(403).json({ error: "Access denied." });
   }
 
   try {
-    const user = await userSchema.findOne({ username: req.params.username });
+    const user = await userSchema.findById(req.params.userId);
     if (!user) {
       return res.status(403).json({ error: "user not found." });
     }
@@ -218,7 +257,7 @@ router.get("/:username/profile", authorization, async (req, res) => {
 
 // user route to upload the profile image
 router.post(
-  "/:username/uploadProfileImage",
+  "/:userId/uploadProfileImage",
   authorization,
   upload.single("profileImage"),
   async (req, res) => {

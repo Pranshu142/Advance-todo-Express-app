@@ -8,8 +8,9 @@
 </header>
 
 <script>
-  const username = "<%= username %>";
-  console.log(username);
+  // const username = "<%= username %>";
+  const userId = "<%= user._id %>";
+  console.log(userId);
   document.addEventListener("DOMContentLoaded", function () {
     const logoutBtn = () => {
       console.log(document.getElementById("logout-btn"));
@@ -32,7 +33,7 @@
     };
     const profileBtn = () => {
       document.getElementById("profile-btn").addEventListener("click", () => {
-        window.location.href = `/users/${username}/profile`;
+        window.location.href = `/users/${userId}/profile`;
       });
     };
 
@@ -40,13 +41,13 @@
       document
         .getElementById("collection-btn")
         .addEventListener("click", () => {
-          window.location.href = `/users/${username}/collections`;
+          window.location.href = `/users/${userId}/collections`;
         });
     };
 
     const createTask = () => {
       document.getElementById("create-btn").addEventListener("click", () => {
-        window.location.href = `/users/${username}/create`;
+        window.location.href = `/users/${userId}/create`;
       });
     };
     createTask();

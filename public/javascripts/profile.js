@@ -64,6 +64,54 @@ document.addEventListener("DOMContentLoaded", () => {
     updateTaskCounts(); // Update task counts in the navigation
     displayTasks("totalTask"); // Show all tasks by default
   }
+  const userUpdateFnc = () => {
+    const updateModal = document.getElementById("update-info-modal");
+    const closeModal = document.getElementById("close-modal");
+    const updateForm = document.getElementById("update-user-info-form");
+    const updateInfoBtn = document.querySelector("#user-info-update-btn");
+    // Show the modal
+    updateInfoBtn.addEventListener("click", () => {
+      updateModal.style.display = "flex";
+    });
+    // Close the modal
+    closeModal.addEventListener("click", () => {
+      updateModal.style.display = "none";
+    });
 
+    // Submit form
+    updateForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(updateForm);
+      const userData = {
+        username: formData.get("username"),
+        email: formData.get("email"),
+        password: formData.get("password"),
+      };
+
+      try {
+        const response = await fetch("/users/update", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+          alert("User information updated successfully!");
+          location.reload();
+        } else {
+          alert(result.error || "Failed to update user information.");
+        }
+      } catch (error) {
+        console.error("Error updating user information:", error);
+        alert("An error occurred. Please try again.");
+      }
+    });
+  };
+
+  userUpdateFnc();
   initialize();
 });
