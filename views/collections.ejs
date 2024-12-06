@@ -23,7 +23,11 @@
     <main>
       <section id="todays-task" class="page-1 working-area">
         <% todaysTasks.forEach( (ele)=>{ %>
-        <div class="task-card-wrapper">
+        <div class="task-card-wrapper" data-task-id="<%= ele._id %>">
+          <div id="indicator-tag">
+            <h3><span></span></h3>
+          </div>
+
           <div id="date-time">
             <span
               id="date-time-content"
@@ -79,7 +83,10 @@
 
       <section id="previous-task" class="page-2 working-area">
         <% previousTasks.forEach( (ele)=>{ %>
-        <div class="task-card-wrapper">
+        <div class="task-card-wrapper" data-task-id="<%= ele._id%>">
+          <div id="indicator-tag">
+            <h3><span></span></h3>
+          </div>
           <div id="date-time">
             <span
               id="date-time-content"

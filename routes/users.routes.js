@@ -138,6 +138,28 @@ router.get("/:username/collections", authorization, async (req, res) => {
   }
 });
 
+router.post("/tasks/:taskId/updateStatus", async (req, res) => {
+  const { taskId } = req.params;
+  const { status } = req.body;
+
+  try {
+    const task = await userSchema.findOneAndUpdate(
+      { "tasks._id": taskId },
+      { $set: { "tasks.$.status": status } }, // Update the status of the specific task
+      { new: true }
+    );
+
+    if (!task) {
+      return res.status(404).json({ error: "Task not found" });
+    }
+
+    res.status(200).json({ message: "Task status updated", task });
+  } catch (error) {
+    console.error("Error updating task status:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 router.get("/:username/create", authorization, function (req, res) {
   if (req.user.username !== req.params.username) {
     return res
@@ -176,15 +198,21 @@ router.get("/:username/profile", authorization, async (req, res) => {
       return res.status(403).json({ error: "user not found." });
     }
 
-    console.log(user.profileImage);
+    // Filter today's tasks
+    const liveTasks = user.tasks.filter((task) => task.status === "live");
+    const completeTasks = user.tasks.filter(
+      (task) => task.status === "complete"
+    );
+
     res.render("profile", {
       username: req.user.username,
-      tasks: user.tasks,
       user,
+      liveTasks,
+      completeTasks,
     });
   } catch (error) {
-    console.log(error);
-    res.status(404).json({ error: "something went wrong" });
+    console.error("Error fetching tasks:", error);
+    res.status(500).send("Server error");
   }
 });
 
