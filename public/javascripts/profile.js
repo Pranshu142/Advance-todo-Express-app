@@ -29,11 +29,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Show the selected task container
     if (category === "liveTask") {
-      liveTasksContainer.style.display = "block";
+      liveTasksContainer.style.display = "flex";
     } else if (category === "completedTask") {
-      completedTasksContainer.style.display = "block";
+      completedTasksContainer.style.display = "flex";
     } else if (category === "totalTask") {
-      totalTasksContainer.style.display = "block";
+      totalTasksContainer.style.display = "flex";
     }
   }
 

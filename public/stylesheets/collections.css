@@ -49,6 +49,10 @@ main {
   border-radius: 20px; /* Smooth rounded corners */
   backdrop-filter: blur(15px); /* Frosted glass effect */
 }
+#empty-card-info {
+  color: rgba(61, 61, 59, 0.67);
+  font-size: 2rem;
+}
 
 #indicator-tag {
   position: absolute;

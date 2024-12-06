@@ -22,7 +22,9 @@
     <%- include("partials/logout") %>
     <main>
       <section id="todays-task" class="page-1 working-area">
-        <% todaysTasks.forEach( (ele)=>{ %>
+        <% if (todaysTasks.length <= 0) { %>
+        <h2><span id="empty-card-info">There is no current task</span></h2>
+        <% } else { %> <% todaysTasks.forEach((ele) => { %>
         <div class="task-card-wrapper" data-task-id="<%= ele._id %>">
           <div id="indicator-tag">
             <h3><span></span></h3>
@@ -49,9 +51,9 @@
                       class="task-checkbox"
                       value="<%= task %>"
                     />
-                    <label for="checkbox-<%= index %>-<%= ele.title %>"
-                      ><%= task %></label
-                    >
+                    <label for="checkbox-<%= index %>-<%= ele.title %>">
+                      <%= task %>
+                    </label>
                   </li>
                   <% }) %>
                 </ul>
@@ -77,12 +79,13 @@
             </div>
           </div>
         </div>
-
-        <% }) %>
+        <% }) %> <% } %>
       </section>
 
       <section id="previous-task" class="page-2 working-area">
-        <% previousTasks.forEach( (ele)=>{ %>
+        <% if(previousTasks.length ==0){ %>
+        <h3><span id="empty-card-info">There is no previous tasks</span></h3>
+        <% }else {%> <% previousTasks.forEach( (ele)=>{ %>
         <div class="task-card-wrapper" data-task-id="<%= ele._id%>">
           <div id="indicator-tag">
             <h3><span></span></h3>
@@ -137,7 +140,7 @@
           </div>
         </div>
 
-        <% }) %>
+        <% }) %> <% } %>
       </section>
     </main>
     <%- include("partials/footer") %>
