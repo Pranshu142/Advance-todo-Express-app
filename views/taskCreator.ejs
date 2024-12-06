@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Task</title>
+    <link rel="stylesheet" href="/stylesheets/createTask.css" />
+    <link rel="stylesheet" href="/stylesheets/footer.css" />
+    <link rel="stylesheet" href="/stylesheets/loggedInNav.css" />
+    <link
+      rel="shortcut icon"
+      href="/images/icons8-todo-list-16.png"
+      type="image/x-icon"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.min.css"
+    />
+  </head>
+  <body>
+    <main id="create-root">
+      <%- include('partials/logout') %>
+      <div id="page-1">
+        <div id="top-section">
+          <h1>
+            Create Your Task
+            <span><%= username %></span>
+          </h1>
+          <div class="task-input">
+            <form id="task-form" class="form" action="javascript:void(0);">
+              <input
+                id="title-input"
+                type="text"
+                placeholder="Enter task title"
+              />
+              <button id="generate-title" type="button">Add Title</button>
+              <input
+                id="task-input"
+                type="text"
+                placeholder="Enter your task"
+              />
+              <button id="generate-task" type="button">Add Task</button>
+            </form>
+            <div id="emoji-picker-container"></div>
+          </div>
+        </div>
+        <div id="middle-section">
+          <div id="task-wrapper">
+            <div class="task-title">
+              <h2 id="task-title"><span></span></h2>
+              <button id="save-task" class="title-btn" type="button">
+                Save
+              </button>
+              <button id="clear-task" class="title-btn" type="button">
+                Clear
+              </button>
+            </div>
+            <div class="task-items">
+              <ul id="task-list" class="task-list"></ul>
+            </div>
+            <div id="emoji-picker-container"></div>
+          </div>
+        </div>
+      </div>
+
+      <%- include('./partials/footer') %>
+    </main>
+
+    <!-- Load your custom JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@beta/bundled/locomotive-scroll.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js"></script>
+    <script>
+      // used IIFE for faster response of the function expression
+      (function () {
+        const locomotiveScroll = new LocomotiveScroll({
+          el: document.querySelector("#root"),
+          smooth: true,
+          lerp: 0.1,
+        });
+      })();
+    </script>
+    <script src="/javascripts/createTask.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        document
+          .getElementById("save-task")
+          .addEventListener("click", async () => {
+            const title = document
+              .getElementById("task-title")
+              .querySelector("span");
+            const content = Array.from(
+              document.getElementsByClassName("task-text")
+            );
+    
+            // console.log(title.textContent, content.map((ele) => ele.textContent));
+    
+            // Validate title and content
+            if (title.textContent.trim() && content.length > 0) {
+              try {
+                const username = "<%= username %>"; // Ensure this is passed correctly from the server
+                const response = await fetch(`/users/${username}/tasks`, {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    title: title.textContent.trim(),
+                    content: content.map((ele) => ele.textContent.trim()),
+                  }),
+                });
+    
+                const data = await response.json();
+    
+                if (response.ok) {
+                  alert("Success in saving task");
+                  document.getElementById("title-input").value = "";
+                  document.getElementById("task-input").value = "";
+                } else {
+                  alert(data.error || "Failed in saving the task");
+                }
+              } catch (error) {
+                console.log("Error in saving the task", error);
+                alert("Please try again");
+              }
+            } else {
+              alert("Please enter a valid title and task");
+            }
+          });
+      });
+    </script>
+    
+    </script>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Error</title>
+    <link rel="stylesheet" href="/stylesheets/error.css" />
+    <link
+      rel="shortcut icon"
+      href="/images/icons8-error-16.png"
+      type="image/x-icon"
+    />
+  </head>
+  <body>
+    <main class="error-container">
+      <div class="background-overlay"></div>
+      <div class="error-card glass">
+        <h1>Oops! Something went wrong.</h1>
+        <h1><%= message %></h1>
+        <h2><%= error.status %></h2>
+        <pre><%= error.stack %></pre>
+        <a href="/" class="home-btn">Go to Homepage</a>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= user.username %> Collections</title>
+    <link rel="stylesheet" href="/stylesheets/loggedInNav.css" />
+    <link rel="stylesheet" href="/stylesheets/collections.css" />
+    <link rel="stylesheet" href="/stylesheets/footer.css" />
+    <link
+      rel="shortcut icon"
+      href="/images/icons8-todo-list-16.png"
+      type="image/x-icon"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.min.css"
+    />
+  </head>
+
+  <body>
+    <%- include("partials/logout") %>
+    <main>
+      <section id="todays-task" class="page-1 working-area">
+        <% todaysTasks.forEach( (ele)=>{ %>
+        <div class="task-card-wrapper">
+          <div id="date-time">
+            <span
+              id="date-time-content"
+              data-timestamp="<%= ele.createdAt %>"
+            ></span>
+          </div>
+          <div class="current-task-card">
+            <div class="current-task">
+              <div class="current-title">
+                <h2><span><%= ele.title %></span></h2>
+              </div>
+              <div class="current-task-list">
+                <ul class="task-lists">
+                  <% ele.content.forEach((task, index) => { %>
+                  <li class="task-item" style="color: white">
+                    <input
+                      type="checkbox"
+                      id="checkbox-<%= index %>-<%= ele.title %>"
+                      class="task-checkbox"
+                      value="<%= task %>"
+                    />
+                    <label for="checkbox-<%= index %>-<%= ele.title %>"
+                      ><%= task %></label
+                    >
+                  </li>
+                  <% }) %>
+                </ul>
+              </div>
+            </div>
+            <div class="progress-container">
+              <div
+                class="progress-circle"
+                id="progress-circle-<%= ele.title %>"
+              >
+                <div class="inner-progress-circle" id="inner-progress-circle">
+                  <span
+                    class="progress-percentage"
+                    id="progress-percentage-<%= ele.title %>"
+                  >
+                    0%
+                  </span>
+                </div>
+              </div>
+              <div>
+                <h3>Completed</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <% }) %>
+      </section>
+
+      <section id="previous-task" class="page-2 working-area">
+        <% previousTasks.forEach( (ele)=>{ %>
+        <div class="task-card-wrapper">
+          <div id="date-time">
+            <span
+              id="date-time-content"
+              data-timestamp="<%= ele.createdAt %>"
+            ></span>
+          </div>
+          <div class="current-task-card">
+            <div class="current-task">
+              <div class="current-title">
+                <h2><span><%= ele.title %></span></h2>
+              </div>
+              <div class="current-task-list">
+                <ul class="task-lists">
+                  <% ele.content.forEach((task, index) => { %>
+                  <li class="task-item" style="color: white">
+                    <input
+                      type="checkbox"
+                      id="checkbox-<%= index %>-<%= ele.title %>"
+                      class="task-checkbox"
+                      value="<%= task %>"
+                    />
+                    <label for="checkbox-<%= index %>-<%= ele.title %>"
+                      ><%= task %></label
+                    >
+                  </li>
+                  <% }) %>
+                </ul>
+              </div>
+            </div>
+            <div class="progress-container">
+              <div
+                class="progress-circle"
+                id="progress-circle-<%= ele.title %>"
+              >
+                <div class="inner-progress-circle" id="inner-progress-circle">
+                  <span
+                    class="progress-percentage"
+                    id="progress-percentage-<%= ele.title %>"
+                  >
+                    0%
+                  </span>
+                </div>
+              </div>
+              <div>
+                <h3>Completed</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <% }) %>
+      </section>
+    </main>
+    <%- include("partials/footer") %>
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@beta/bundled/locomotive-scroll.min.js"></script>
+    <script>
+      // used IIFE for faster response of the function expression
+      (function () {
+        const locomotiveScroll = new LocomotiveScroll({
+          el: document.querySelector("#root"),
+          smooth: true,
+          lerp: 0.1,
+        });
+      })();
+    </script>
+    <script src="/javascripts/collections.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {});
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.4/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.4/plugin/advancedFormat.js"></script>
+    <script>
+      dayjs.extend(dayjs_plugin_advancedFormat); // Extend Day.js with the plugin
+    </script>
+  </body>
+</html>

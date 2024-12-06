@@ -1,0 +1,57 @@
+<header>
+  <nav class="loggedIn-nav">
+    <div id="logout-btn" class="nav-btn">Logout</div>
+    <div id="profile-btn" class="nav-btn">profile</div>
+    <div id="collection-btn" class="nav-btn">Collections</div>
+    <div id="create-btn" class="nav-btn">Create</div>
+  </nav>
+</header>
+
+<script>
+  const username = "<%= username %>";
+  console.log(username);
+  document.addEventListener("DOMContentLoaded", function () {
+    const logoutBtn = () => {
+      console.log(document.getElementById("logout-btn"));
+      document
+        .getElementById("logout-btn")
+        .addEventListener("click", async () => {
+          try {
+            // Call the logout endpoint on the server
+            const response = await fetch("/users/logout", {
+              method: "POST",
+            });
+            if (response.ok) {
+              // Redirect to the home page after logout
+              window.location.href = "/";
+            }
+          } catch (error) {
+            console.error("Logout failed:", error);
+          }
+        });
+    };
+    const profileBtn = () => {
+      document.getElementById("profile-btn").addEventListener("click", () => {
+        window.location.href = `/users/${username}/profile`;
+      });
+    };
+
+    const collectionsBtn = () => {
+      document
+        .getElementById("collection-btn")
+        .addEventListener("click", () => {
+          window.location.href = `/users/${username}/collections`;
+        });
+    };
+
+    const createTask = () => {
+      document.getElementById("create-btn").addEventListener("click", () => {
+        window.location.href = `/users/${username}/create`;
+      });
+    };
+    createTask();
+    logoutBtn();
+    profileBtn();
+    collectionsBtn();
+  });
+</script>

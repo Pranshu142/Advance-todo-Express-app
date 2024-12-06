@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="/stylesheets/login.css" />
+    <link
+      rel="shortcut icon"
+      href="/images/icons8-todo-list-16.png"
+      type="image/x-icon"
+    />
+  </head>
+  <body>
+    <main class="main-container">
+      <div class="page-1">
+        <section class="login-form-outer">
+          <div class="login-nav">
+            <button id="login-btn" class="nav-btn active">Login</button>
+            <button id="signup-btn" class="nav-btn">Sign Up</button>
+          </div>
+          <div class="login-body-actual">
+            <form
+              id="login-form"
+              class="form active-form glass"
+              action="/users/login"
+              method="post"
+            >
+              <h2>Welcome Back</h2>
+              <input
+                type="text"
+                placeholder="Username"
+                name="username"
+                required
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                name="password"
+                required
+              />
+              <button type="submit" class="submit-btn">Login</button>
+            </form>
+            <form
+              id="signup-form"
+              class="form glass"
+              action="/users/signup"
+              method="post"
+            >
+              <h2>Create Account</h2>
+              <input
+                type="text"
+                name="username"
+                placeholder="Username"
+                required
+              />
+              <input type="email" name="email" placeholder="Email" required />
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                required
+              />
+              <button type="submit" class="submit-btn">Sign Up</button>
+            </form>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script src="/javascripts/login.js"></script>
+  </body>
+</html>

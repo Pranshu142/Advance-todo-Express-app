@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Pros-Tech: Your ultimate to-do companion for effortless productivity. Organize, prioritize, and achieve with our powerful task management app."
+    />
+
+    <link rel="stylesheet" href="stylesheets/index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.min.css"
+    />
+
+    <link rel="stylesheet" href="/stylesheets/footer.css" />
+
+    <link
+      rel="shortcut icon"
+      href="/images/icons8-todo-list-16.png"
+      type="image/x-icon"
+    />
+
+    <title>Pros</title>
+  </head>
+
+  <body>
+    <div class="cursor-follower"></div>
+    <div class="side-bar">
+      <div class="close-btn">
+        <button>Close</button>
+      </div>
+      <div class="side-bar-menu">
+        <ul>
+          <div class="menu-with-icon">
+            <div class="menu-icon">
+              <img src="svgs/home-icon-menu.svg" alt="" srcset="" />
+            </div>
+            <div class="menu-name"><a href="/">Home</a></div>
+          </div>
+          <div class="menu-with-icon">
+            <div class="menu-icon">
+              <img src="svgs/login-menu-icon.png" alt="" srcset="" />
+            </div>
+            <div class="menu-name"><a href="/users/login">Login</a></div>
+          </div>
+          <div class="menu-with-icon">
+            <div class="menu-icon">
+              <img src="svgs/about-icon-menu.png" alt="" srcset="" />
+            </div>
+            <div class="menu-name"><a href="/about">About</a></div>
+          </div>
+          <div class="menu-with-icon">
+            <div class="menu-icon">
+              <img src="svgs/contact-menu-icon.png" alt="" srcset="" />
+            </div>
+            <div class="menu-name"><a href="/contact">Contact</a></div>
+          </div>
+        </ul>
+      </div>
+    </div>
+    <div class="side-bar-shadow"></div>
+    <main id="root">
+      <nav>
+        <div id="leftNav">
+          <div class="company-logo">
+            <img
+              src="https://preview.redd.it/3d-rendered-the-cyberpunk-logo-using-blender-v0-khopj82wqee91.png?width=1080&crop=smart&auto=webp&s=0e62e74ba8b5ef6191228e855079491cfa56f57b"
+              alt="Company Logo"
+              srcset
+            />
+          </div>
+        </div>
+
+        <div id="rightNav">
+          <a href="/">Home</a>
+          <a href="/about">About</a>
+          <a href="/users/login">Login</a>
+          <a href="/contact">Contact</a>
+          <div class="menu-icon">
+            <img src="svgs/icons8-menu.svg" alt="" srcset="" />
+          </div>
+        </div>
+      </nav>
+
+      <div id="page_1">
+        <div class="Intro">
+          <h1>
+            <span>TaskMaster:</span> Your Ultimate To-Do Companion for
+            Effortless Productivity
+          </h1>
+          <p class="tagline">Organize. Prioritize. Achieve.</p>
+        </div>
+        <div class="page-1-bottom-elem">
+          <div class="p1-b-e-1" id="e1-p1">
+            <h1>"Conquer Your Day, One Task at a Time!"</h1>
+            <p>Empower your productivity with effortless task management.</p>
+          </div>
+          <div class="p1-b-e-1" id="e2-p1">
+            <h1>"Organize. Prioritize. Achieve."</h1>
+            <p>Your all-in-one solution for a more productive life.</p>
+          </div>
+          <div class="p1-b-e-1" id="e3-p1">
+            <h1>"Turn To-Dos into Dones!"</h1>
+            <p>Simplify your tasks and get more done, faster.</p>
+          </div>
+        </div>
+      </div>
+      <div id="page_2">
+        <div id="features">
+          <div id="feature_nav_heading">
+            <li class="items selected">Why we</li>
+            <li class="items">Easy to Start</li>
+            <li class="items">User Experience</li>
+          </div>
+          <div id="feature_dets">
+            <div id="feature_content_1" class="feature_arch">
+              <div class="container">
+                <div id="con-1" class="con">
+                  <div class="con-text">
+                    <p>
+                      Our to-do app offers a
+                      <strong>simple, clean interface</strong> to help you
+                      manage tasks effortlessly. Add, edit, and check off tasks
+                      quickly to stay organized and productive.
+                    </p>
+                  </div>
+                  <div class="con-image">
+                    <img
+                      src="images/puzzle-svgrepo-com.svg"
+                      alt="Task Management Icon"
+                    />
+                  </div>
+                </div>
+
+                <div id="con-2" class="con">
+                  <div class="con-image">
+                    <img
+                      src="images/address-book-svgrepo-com.svg"
+                      alt="Syncing Tasks Icon"
+                    />
+                  </div>
+                  <div class="con-text">
+                    <p>
+                      Sync your tasks across all devices, ensuring
+                      <strong>seamless access anytime, anywhere</strong>. Stay
+                      on top of your schedule, no matter where you are.
+                    </p>
+                  </div>
+                </div>
+
+                <div id="con-3" class="con">
+                  <div class="con-text">
+                    <p>
+                      Customize your task list with
+                      <strong>categories, priorities, and deadlines</strong>.
+                      Organize your workflow and
+                      <strong>boost productivity</strong> with ease.
+                    </p>
+                  </div>
+                  <div class="con-image">
+                    <img
+                      src="images/target-svgrepo-com.svg"
+                      alt="Task Customization Icon"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="feature_content_2" class="feature_arch">
+              <div class="steps-container">
+                <div class="steps-to-follow">
+                  <div class="arrow-indicator" id="b-1">
+                    <div class="points-button">
+                      <h1>Step 1</h1>
+                    </div>
+                  </div>
+                  <div class="actual-content">
+                    <p>
+                      If you don’t have an account yet, create one to start
+                      using our app features.
+                    </p>
+                    <p>
+                      Already have an account? Simply log in and start exploring
+                      <strong>Pros-App</strong>.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="steps-to-follow">
+                  <div class="arrow-indicator" id="b-2">
+                    <div class="points-button">
+                      <h1>Step 2</h1>
+                    </div>
+                  </div>
+                  <div class="actual-content">
+                    <p>
+                      Once logged in, click the <strong>Start</strong> button to
+                      create your first
+                      <code style="background-color: gray">To-Do List</code>.
+                    </p>
+                    <p>
+                      As you complete tasks, the progress indicator will display
+                      the total percentage of tasks completed.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="steps-to-follow">
+                  <div class="arrow-indicator" id="b-3">
+                    <div class="points-button">
+                      <h1>Step 3</h1>
+                    </div>
+                  </div>
+                  <div class="actual-content">
+                    <p>
+                      Once you complete all assigned tasks, you’ll receive a
+                      <strong>congratulatory message</strong> via email.
+                    </p>
+                    <p>
+                      You’ll also receive a <strong>pre-made post</strong> that
+                      you can <strong>easily share</strong>.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="feature_content_3" class="feature_arch">
+              <div class="user-experiences">
+                <div class="user-experience" id="user-1">
+                  <div class="user-image">
+                    <img
+                      src="images/ann-danilina-hzQ1VAEJoW4-unsplash.jpg"
+                      alt="User 1"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div class="user-content">
+                    <p>
+                      "This to-do app has transformed how I organize my tasks.
+                      It's simple, intuitive, and perfect for staying productive
+                      every day."
+                    </p>
+                  </div>
+                </div>
+
+                <div class="user-experience" id="user-2">
+                  <div class="user-image">
+                    <img
+                      src="images/marko-brecic-zCdsbK-QhsQ-unsplash.jpg"
+                      alt="User 2"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div class="user-content">
+                    <p>
+                      "I love how I can sync my tasks across devices. No more
+                      missing deadlines – it's a game-changer for busy
+                      professionals!"
+                    </p>
+                  </div>
+                </div>
+
+                <div class="user-experience" id="user-3">
+                  <div class="user-image">
+                    <img
+                      src="images/raymond-petrik-SM6yusQJ0nU-unsplash.jpg"
+                      alt="User 3"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div class="user-content">
+                    <p>
+                      "The customization options make this to-do app the best
+                      for personal and work-related tasks. I’ve never been more
+                      organized."
+                    </p>
+                  </div>
+                </div>
+                <div class="user-experience" id="user-3">
+                  <div class="user-image">
+                    <img
+                      src="images/tatiana-pavlova-dF1DHN6vfQg-unsplash.jpg"
+                      alt="User 3"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div class="user-content">
+                    <p>
+                      "This to-do app's customization options make it ideal for
+                      managing both personal and professional tasks. I've never
+                      been so organized."
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="start-go-login-button">
+          <h2>start</h2>
+        </div>
+      </div>
+      <hr />
+      <%- include('partials/footer') %>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@beta/bundled/locomotive-scroll.min.js"></script>
+
+    <script>
+      // used IIFE for faster response of the function expression
+      (function () {
+        const locomotiveScroll = new LocomotiveScroll({
+          el: document.querySelector("#root"),
+          smooth: true,
+          lerp: 0.1,
+        });
+      })();
+    </script>
+    <script src="javascripts/script.js" type="module"></script>
+  </body>
+</html>
