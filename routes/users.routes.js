@@ -214,7 +214,7 @@ router.post("/:userId/tasks", authorization, async (req, res) => {
   // console.log({ title: title, content: content });
 
   try {
-    const user = await userSchema.findOne({ _id: req.params.userId });
+    const user = await userSchema.findById(req.params.userId);
     if (!user) return res.status(404).json({ error: "User not found" });
     user.tasks.push({ title, content });
     await user.save();

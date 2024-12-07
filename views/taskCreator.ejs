@@ -24,7 +24,7 @@
         <div id="top-section">
           <h1>
             Create Your Task
-            <span><%= username %></span>
+            <span><%= user.username %></span>
           </h1>
           <div class="task-input">
             <form id="task-form" class="form" action="javascript:void(0);">
@@ -80,7 +80,7 @@
       })();
     </script>
     <script src="/javascripts/createTask.js"></script>
-    <script>
+    <script> 
       document.addEventListener("DOMContentLoaded", () => {
         document
           .getElementById("save-task")
@@ -92,12 +92,13 @@
               document.getElementsByClassName("task-text")
             );
     
+            const userId = "<%= user._id %>";// Ensure this is passed correctly from the server
             // console.log(title.textContent, content.map((ele) => ele.textContent));
     
             // Validate title and content
             if (title.textContent.trim() && content.length > 0) {
               try {
-                const userId = "<%= user._Id %>"; // Ensure this is passed correctly from the server
+                console.log(userId);
                 const response = await fetch(`/users/${userId}/tasks`, {
                   method: "POST",
                   headers: {
