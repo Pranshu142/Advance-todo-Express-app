@@ -8,6 +8,7 @@ import authorization from "../middlewares/auth.js";
 // import randomColor from "randomcolor";
 import upload from "../config/multer.config.js";
 import dayjs from "dayjs";
+import { sendCongratulatoryEmail } from "../config/mailer.js";
 
 const router = express.Router();
 
@@ -138,25 +139,62 @@ router.get("/:userId/collections", authorization, async (req, res) => {
   }
 });
 
-router.post("/tasks/:taskId/updateStatus", async (req, res) => {
+router.post("/tasks/:taskId/updateStatus", authorization, async (req, res) => {
   const { taskId } = req.params;
   const { status } = req.body;
 
   try {
-    const task = await userSchema.findOneAndUpdate(
+    // Update the specific task's status
+    const user = await userSchema.findOneAndUpdate(
       { "tasks._id": taskId },
-      { $set: { "tasks.$.status": status } }, // Update the status of the specific task
+      { $set: { "tasks.$.status": status } },
       { new: true }
     );
 
-    if (!task) {
+    if (!user) {
       return res.status(404).json({ error: "Task not found" });
     }
 
-    res.status(200).json({ message: "Task status updated", task });
+    // Check today's tasks
+    const today = dayjs().startOf("day");
+    const todaysTasks = user.tasks.filter((task) =>
+      dayjs(task.createdAt).isSame(today, "day")
+    );
+
+    const allCompleted = todaysTasks.every(
+      (task) => task.status === "complete"
+    );
+
+    if (allCompleted) {
+      // Check if email was already sent
+      const emailAlreadySent = todaysTasks.every(
+        (task) => task.emailSent === true
+      );
+
+      if (!emailAlreadySent) {
+        // Send the congratulatory email
+        await sendCongratulatoryEmail(user.email, user.username);
+
+        // Update `emailSent` for all today's tasks
+        await userSchema.updateOne(
+          { _id: user._id },
+          {
+            $set: {
+              "tasks.$[task].emailSent": true,
+            },
+          },
+          {
+            arrayFilters: [{ "task.createdAt": { $gte: today.toDate() } }],
+            multi: true,
+          }
+        );
+      }
+    }
+
+    res.status(200).json({ message: "Task status updated successfully." });
   } catch (error) {
     console.error("Error updating task status:", error);
-    res.status(500).json({ error: "Server error" });
+    res.status(500).json({ error: "Internal server error." });
   }
 });
 

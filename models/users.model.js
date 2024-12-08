@@ -13,6 +13,10 @@ const taskSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  emailSent: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 // Define User schema
