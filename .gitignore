@@ -6,6 +6,7 @@ yarn-debug.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+/public/uploads
 # Runtime data
 pids/
 *.pid
