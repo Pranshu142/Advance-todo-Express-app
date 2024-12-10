@@ -153,6 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (response.ok) {
               alert("Task deleted successfully!");
               card.remove(); // Remove the card from the UI
+              window.location.reload();
             } else {
               const data = await response.json();
               alert(data.error || "Failed to delete task.");
@@ -186,6 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
               if (response.ok) {
                 alert("Task content deleted successfully!");
                 item.remove(); // Remove the task item from the UI
+                // window.location.reload();
               } else {
                 const data = await response.json();
                 alert(data.error || "Failed to delete task content.");
