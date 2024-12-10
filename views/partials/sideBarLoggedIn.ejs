@@ -1,0 +1,118 @@
+<div class="side-bar">
+  <div class="close-btn">
+    <i class="ri-close-large-line"></i>
+  </div>
+  <div class="side-bar-menu">
+    <div class="menu-list">
+      <!-- <div class="menu-with-icon">
+        <i class="ri-home-5-line"></i>
+        <div class="menu-name"><a href="/">Home</a></div>
+      </div> -->
+      <% if(!user){ %>
+
+      <div class="menu-with-icon">
+        <i class="ri-login-circle-line"></i>
+        <div class="menu-name"><a href="/users/login">Login</a></div>
+      </div>
+      <% } else{ %>
+      <div class="menu-with-icon">
+        <i class="ri-logout-circle-line"></i>
+        <div id="logout-btn-1" class="menu-name">Logout</div>
+      </div>
+      <% }%>
+      <div class="menu-with-icon">
+        <i class="ri-information-fill"></i>
+        <div class="menu-name"><a href="/about">About</a></div>
+      </div>
+      <div class="menu-with-icon">
+        <i class="ri-contacts-book-upload-line"></i>
+        <div class="menu-name"><a href="/contact">Contact</a></div>
+      </div>
+
+      <div class="menu-with-icon">
+        <i class="ri-profile-line"></i>
+        <div id="profile-btn-1" class="menu-name">profile</div>
+      </div>
+      <div class="menu-with-icon">
+        <i class="ri-file-list-3-line"></i>
+        <div id="collection-btn-1" class="menu-name">Collections</div>
+      </div>
+      <div class="menu-with-icon">
+        <i class="ri-add-circle-line"></i>
+        <div id="create-btn-1" class="menu-name">Create</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="side-bar-shadow"></div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const sideBarMover = () => {
+      const menuIcon = document.querySelector("#menu-icon-svg");
+      const sideBar = document.querySelector(".side-bar");
+      const sideBarShadow = document.querySelector(".side-bar-shadow");
+      const closeBtn = document.querySelector(".close-btn");
+
+      menuIcon.addEventListener("click", function () {
+        console.log("hello world!");
+        menuIcon.style.display = "none";
+        sideBarShadow.style.left = 0;
+        sideBar.style.left = 0;
+      });
+
+      closeBtn.addEventListener("click", function () {
+        menuIcon.style.display = "flex";
+        sideBarShadow.style.left = "-100%";
+        sideBar.style.left = "-100%";
+      });
+    };
+    const userId = "<%= user._id %>";
+    console.log(userId);
+    const logoutBtn = () => {
+      console.log(document.getElementById("logout-btn-1"));
+      document
+        .getElementById("logout-btn-1")
+        .addEventListener("click", async () => {
+          try {
+            // Call the logout endpoint on the server
+            const response = await fetch("/users/logout", {
+              method: "POST",
+            });
+            if (response.ok) {
+              // Redirect to the home page after logout
+              window.location.href = "/";
+            }
+          } catch (error) {
+            console.error("Logout failed:", error);
+          }
+        });
+    };
+    const profileBtn = () => {
+      document.getElementById("profile-btn-1").addEventListener("click", () => {
+        console.log("hello world");
+        window.location.href = `/users/${userId}/profile`;
+      });
+    };
+
+    const collectionsBtn = () => {
+      document
+        .getElementById("collection-btn-1")
+        .addEventListener("click", () => {
+          window.location.href = `/users/${userId}/collections`;
+        });
+    };
+
+    const createTask = () => {
+      document.getElementById("create-btn-1").addEventListener("click", () => {
+        window.location.href = `/users/${userId}/create`;
+      });
+    };
+
+    createTask();
+    logoutBtn();
+    profileBtn();
+    collectionsBtn();
+    sideBarMover();
+  });
+</script>

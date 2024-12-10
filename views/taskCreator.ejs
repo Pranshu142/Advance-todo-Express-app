@@ -3,10 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Create Task</title>
+    <title>Create <%= user.username %> Task</title>
     <link rel="stylesheet" href="/stylesheets/createTask.css" />
-    <link rel="stylesheet" href="/stylesheets/footer.css" />
     <link rel="stylesheet" href="/stylesheets/loggedInNav.css" />
+    <link rel="stylesheet" href="/stylesheets/sideBarLoggedIn.css" />
+    <link rel="stylesheet" href="/stylesheets/footer.css" />
     <link
       rel="shortcut icon"
       href="/images/icons8-todo-list-16.png"
@@ -16,8 +17,13 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.min.css"
     />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
   </head>
   <body>
+    <%- include("partials/sideBarLoggedIn") %>
     <main id="create-root">
       <%- include('partials/logout') %>
       <div id="page-1">
@@ -80,7 +86,7 @@
       })();
     </script>
     <script src="/javascripts/createTask.js"></script>
-    <script> 
+    <script>
       document.addEventListener("DOMContentLoaded", () => {
         document
           .getElementById("save-task")
@@ -91,10 +97,10 @@
             const content = Array.from(
               document.getElementsByClassName("task-text")
             );
-    
-            const userId = "<%= user._id %>";// Ensure this is passed correctly from the server
+
+            const userId = "<%= user._id %>"; // Ensure this is passed correctly from the server
             // console.log(title.textContent, content.map((ele) => ele.textContent));
-    
+
             // Validate title and content
             if (title.textContent.trim() && content.length > 0) {
               try {
@@ -109,9 +115,9 @@
                     content: content.map((ele) => ele.textContent.trim()),
                   }),
                 });
-    
+
                 const data = await response.json();
-    
+
                 if (response.ok) {
                   alert("Success in saving task");
                   document.getElementById("title-input").value = "";
@@ -128,8 +134,6 @@
             }
           });
       });
-    </script>
-    
     </script>
   </body>
 </html>

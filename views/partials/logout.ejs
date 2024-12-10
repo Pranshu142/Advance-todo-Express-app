@@ -1,17 +1,22 @@
 <header>
   <nav class="loggedIn-nav">
+    <!-- <div class="nav-btn" id="home-btn">Home</div> -->
+    <div class="nav-btn" id="about-btn">About us</div>
+    <div class="nav-btn" id="contact-btn">Contact</div>
     <div id="logout-btn" class="nav-btn">Logout</div>
     <div id="profile-btn" class="nav-btn">profile</div>
     <div id="collection-btn" class="nav-btn">Collections</div>
     <div id="create-btn" class="nav-btn">Create</div>
+    <div class="menu-icon">
+      <img src="/svgs/icons8-menu.svg" id="menu-icon-svg" srcset="" />
+    </div>
   </nav>
 </header>
 
 <script>
-  // const username = "<%= username %>";
-  const userId = "<%= user._id %>";
-  console.log(userId);
   document.addEventListener("DOMContentLoaded", function () {
+    const userId = "<%= user._id %>";
+    console.log(userId);
     const logoutBtn = () => {
       console.log(document.getElementById("logout-btn"));
       document
@@ -33,6 +38,7 @@
     };
     const profileBtn = () => {
       document.getElementById("profile-btn").addEventListener("click", () => {
+        console.log("hello world");
         window.location.href = `/users/${userId}/profile`;
       });
     };
@@ -50,6 +56,18 @@
         window.location.href = `/users/${userId}/create`;
       });
     };
+    const generalTab = () => {
+      // document.getElementById("home-btn").addEventListener("click", () => {
+      //   window.location.href = "/";
+      // });
+      document.getElementById("about-btn").addEventListener("click", () => {
+        window.location.href = "/about";
+      });
+      document.getElementById("contact-btn").addEventListener("click", () => {
+        window.location.href = "/contact";
+      });
+    };
+    generalTab();
     createTask();
     logoutBtn();
     profileBtn();

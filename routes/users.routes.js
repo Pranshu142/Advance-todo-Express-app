@@ -322,4 +322,46 @@ router.post(
   }
 );
 
+// Delete entire task object
+router.delete("/tasks/:taskId", authorization, async (req, res) => {
+  try {
+    const { taskId } = req.params;
+
+    const user = await userSchema.findById(req.user.userId);
+    if (!user) return res.status(404).json({ error: "User not found." });
+
+    // Remove the task object
+    user.tasks = user.tasks.filter((task) => task._id.toString() !== taskId);
+    await user.save();
+
+    res.status(200).json({ message: "Task deleted successfully." });
+  } catch (error) {
+    console.error("Error deleting task:", error);
+    res.status(500).json({ error: "Internal server error." });
+  }
+});
+
+// Delete specific task content
+router.delete("/tasks/:taskId/content", authorization, async (req, res) => {
+  try {
+    const { taskId } = req.params;
+    const { content } = req.body; // Content to be removed
+
+    const user = await userSchema.findById(req.user.userId);
+    if (!user) return res.status(404).json({ error: "User not found." });
+
+    // Find the task and remove the specific content
+    const task = user.tasks.find((t) => t._id.toString() === taskId);
+    if (!task) return res.status(404).json({ error: "Task not found." });
+
+    task.content = task.content.filter((c) => c !== content);
+    await user.save();
+
+    res.status(200).json({ message: "Task content deleted successfully." });
+  } catch (error) {
+    console.error("Error deleting task content:", error);
+    res.status(500).json({ error: "Internal server error." });
+  }
+});
+
 export default router;

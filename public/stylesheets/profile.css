@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Helvetica;
+  font-family: Helvetica, Arial, sans-serif;
 }
 
 body,
@@ -11,97 +11,18 @@ html {
   height: 100%;
   width: 100%;
 }
-
-#root {
-  color: #e0e0e0;
-  background-color: #121212;
-  overflow-x: hidden;
-  line-height: 1.5;
-  font-size: 16px;
-}
-
-#page-1 {
-  max-width: 1200px;
-  margin: auto;
-  padding: 20px;
-  min-height: 100vh;
-}
-
-/* Navigation Container */
-.nav-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px;
-  background-color: #1e1e2f;
-  border-radius: 10px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-  gap: 20px;
-  transition: transform 0.3s ease;
-}
-
-.nav-container:hover {
-  transform: scale(1.02);
-}
-
-@media (min-width: 768px) {
-  .nav-container {
-    flex-direction: row;
-  }
-}
-
-/* User Information */
-.left-nav {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.user-image img {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  border: 3px solid #ff6347;
-  transition: transform 0.3s ease;
-}
-
-.user-image img:hover {
-  transform: scale(1.1);
-}
-
-.user-name span {
-  font-size: 1.5em;
-  color: #ff6347;
-  font-weight: bold;
-  text-transform: capitalize;
-}
-
-.upload-profile-image-btn button {
-  background-color: #ff6347;
-  color: #ffffff;
-  padding: 8px 16px;
-  font-size: 1em;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.upload-profile-image-btn button:hover {
-  background-color: #ff8364;
-  transform: translateY(-2px);
-}
 .user-update-info-background-blur {
   background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent dark overlay */
   backdrop-filter: blur(15px); /* Smooth blur effect */
   z-index: 99;
   position: fixed;
+  top: -100%;
   height: 100%;
   width: 100%;
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
+  transition: top 0.3s ease-in-out;
 }
 
 .user-info-update-fixed {
@@ -111,7 +32,9 @@ html {
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3); /* Soft shadow */
   padding: 30px;
   width: 400px;
+  opacity: 0;
   max-width: 90%;
+  transition: opacity 1s ease-in-out;
 }
 
 .modal-heading {
@@ -187,12 +110,106 @@ html {
 #user-info-update-btn:hover {
   cursor: pointer;
 }
+#root {
+  color: #e0e0e0;
+  background-color: #121212;
+  overflow-x: hidden;
+  line-height: 1.5;
+  font-size: 16px;
+}
+
+#page-1 {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+/* Navigation Container */
+.nav-container {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping for smaller screens */
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  background-color: #1e1e2f;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  gap: 20px;
+  transition: transform 0.3s ease;
+}
+
+.nav-container:hover {
+  transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+  .nav-container {
+    flex-direction: column; /* Stack items vertically on smaller screens */
+  }
+}
+
+/* User Information */
+.left-nav {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap; /* Wrap items on smaller screens */
+}
+
+.user-image img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 3px solid #ff6347;
+  transition: transform 0.3s ease;
+}
+
+.user-image img:hover {
+  transform: scale(1.1);
+}
+
+.user-name span {
+  font-size: 1.5em;
+  color: #ff6347;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.upload-profile-image-btn button {
+  background-color: #ff6347;
+  color: #ffffff;
+  padding: 8px 16px;
+  font-size: 1em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.upload-profile-image-btn button:hover {
+  background-color: #ff8364;
+  transform: translateY(-2px);
+}
+
+#user-info-update-btn {
+  font-size: 2rem;
+  color: #e0e0e0;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+#user-info-update-btn:hover {
+  color: #ff6347;
+  transform: scale(1.1);
+}
 
 /* Task Info Boxes */
 .right-nav {
   display: flex;
   gap: 15px;
   justify-content: center;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
 }
 
 .task-info {
@@ -201,6 +218,8 @@ html {
   border-radius: 8px;
   text-align: center;
   transition: transform 0.3s ease, background-color 0.3s ease;
+  flex: 1 1 120px; /* Flex-grow for equal width on small screens */
+  max-width: 200px;
 }
 
 .task-info p {
@@ -224,6 +243,7 @@ html {
   justify-content: center;
   gap: 20px;
   margin-top: 20px;
+  flex-wrap: wrap; /* Wrap tabs on smaller screens */
 }
 
 .task-heading {
@@ -239,65 +259,86 @@ html {
   background-color: #ff6347;
   color: #ffffff;
 }
-
-/* Border Bottom */
-.border-bottom {
-  border-bottom: 2px solid #2b2b3d;
-  margin: 10px 0 20px 0;
+.selected {
+  background-color: #ff6347;
+  color: #ffffff;
 }
 
-/* Tasks Container Grid */
+/* Tasks Container */
 .tasks-container {
   display: grid;
-  grid-template-columns: 1fr;
   gap: 20px;
-}
-
-@media (min-width: 600px) {
-  .tasks-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 900px) {
-  .tasks-container {
-    grid-template-columns: repeat(3, 1fr);
-  }
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(400px, 1fr)
+  ); /* Responsive grid */
+  padding-top: 10px;
+  margin: 10px;
 }
 
 /* Task Card Styling */
 .task-card {
-  background-color: #1e1e2f;
-  border-radius: 10px;
-  padding: 15px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(145deg, #1f1f30, #23233b);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .task-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+}
+
+/* Task Card Heading */
+.task-card-heading {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  transition: gap 0.3s ease-in-out, padding 0.3s ease;
+}
+
+.task-card-heading:hover {
+  gap: 20px;
+  padding-right: 20px;
 }
 
 .task-card-heading p {
-  font-size: 1.2em;
+  font-size: 1.3rem;
   font-weight: bold;
+  color: #ff8264;
+  margin: 0;
+}
+
+.delete-btn {
+  display: none;
+  font-size: 1.1rem;
   color: #ff6347;
+  cursor: pointer;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.task-card-content {
-  margin-top: 10px;
+.delete-btn:hover {
+  transform: translateX(-5px) scale(1.1, 1.1);
 }
 
+/* Task List */
 .task-list {
-  list-style-type: none;
+  list-style: none;
+  padding: 0;
 }
 
 .task-item {
-  padding: 5px;
+  padding: 8px;
   border-bottom: 1px solid #2b2b3d;
-  color: #b0b0b0;
-  transition: color 0.3s ease;
+  color: #d3d3d3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  transition: gap 0.3s ease;
 }
 
 .task-item:last-child {
@@ -305,18 +346,45 @@ html {
 }
 
 .task-item:hover {
-  color: #ff8364;
+  color: #ffb384;
+  gap: 20px;
+}
+
+.task-item i {
+  display: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+i:hover {
+  transform: translateX(-5px) scale(1.1, 1.1);
+  color: crimson;
 }
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
-  .right-nav {
+  .tasks-container {
+    display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
     align-items: center;
   }
 
-  .tasks-category {
+  .task-card {
+    width: 100%;
+  }
+
+  .task-card-heading {
+    flex-wrap: wrap;
+  }
+  .task-card-heading {
     flex-direction: column;
-    align-items: center;
+    gap: 5px;
+    align-items: flex-start;
+  }
+
+  .task-item {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

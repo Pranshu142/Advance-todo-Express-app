@@ -69,13 +69,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const closeModal = document.getElementById("close-modal");
     const updateForm = document.getElementById("update-user-info-form");
     const updateInfoBtn = document.querySelector("#user-info-update-btn");
+    const formDiv = document.querySelector(".user-info-update-fixed");
     // Show the modal
     updateInfoBtn.addEventListener("click", () => {
-      updateModal.style.display = "flex";
+      updateModal.style.top = "0";
+      formDiv.style.opacity = "1";
     });
     // Close the modal
     closeModal.addEventListener("click", () => {
-      updateModal.style.display = "none";
+      updateModal.style.top = "-100%";
+      formDiv.style.opacity = "0";
     });
 
     // Submit form
@@ -111,7 +114,93 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   };
+  const displayDeleteBtn = () => {
+    document
+      .querySelectorAll(".task-card-heading, .task-item")
+      .forEach((element) => {
+        const deleteBtn = element.querySelector(".delete-btn");
 
+        // Show button on hover
+        element.addEventListener("mouseenter", () => {
+          deleteBtn.style.display = "block";
+        });
+
+        // Hide button when hover ends
+        element.addEventListener("mouseleave", () => {
+          deleteBtn.style.display = "none";
+        });
+      });
+  };
+
+  const deletBtnFunctionality = () => {
+    const taskCards = document.querySelectorAll(".task-card");
+
+    // Delete entire task
+    taskCards.forEach((card) => {
+      const deleteTitleBtn = card.querySelector(
+        ".task-card-heading .delete-btn"
+      );
+
+      deleteTitleBtn.addEventListener("click", async () => {
+        const taskId = card.getAttribute("data-task-id");
+
+        if (confirm("Are you sure you want to delete this task?")) {
+          try {
+            const response = await fetch(`/users/tasks/${taskId}`, {
+              method: "DELETE",
+            });
+
+            if (response.ok) {
+              alert("Task deleted successfully!");
+              card.remove(); // Remove the card from the UI
+            } else {
+              const data = await response.json();
+              alert(data.error || "Failed to delete task.");
+            }
+          } catch (error) {
+            console.error("Error deleting task:", error);
+            alert("An error occurred. Please try again.");
+          }
+        }
+      });
+
+      // Delete specific task content
+      const taskItems = card.querySelectorAll(".task-item");
+      taskItems.forEach((item) => {
+        const deleteContentBtn = item.querySelector(".delete-btn");
+
+        deleteContentBtn.addEventListener("click", async () => {
+          const taskId = card.getAttribute("data-task-id");
+          const content = item.textContent.trim(); // Get the content to delete
+
+          if (confirm("Are you sure you want to delete this task content?")) {
+            try {
+              const response = await fetch(`/users/tasks/${taskId}/content`, {
+                method: "DELETE",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ content }),
+              });
+
+              if (response.ok) {
+                alert("Task content deleted successfully!");
+                item.remove(); // Remove the task item from the UI
+              } else {
+                const data = await response.json();
+                alert(data.error || "Failed to delete task content.");
+              }
+            } catch (error) {
+              console.error("Error deleting task content:", error);
+              alert("An error occurred. Please try again.");
+            }
+          }
+        });
+      });
+    });
+  };
+  displayDeleteBtn();
+  deletBtnFunctionality();
   userUpdateFnc();
   initialize();
 });

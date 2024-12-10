@@ -6,6 +6,7 @@
     <title>User Profile</title>
     <link rel="stylesheet" href="/stylesheets/profile.css" />
     <link rel="stylesheet" href="/stylesheets/loggedInNav.css" />
+    <link rel="stylesheet" href="/stylesheets/sideBarLoggedIn.css" />
     <link
       rel="shortcut icon"
       href="/images/icons8-todo-list-16.png"
@@ -22,6 +23,7 @@
   </head>
 
   <body>
+    <%- include('partials/sideBarLoggedIn') %>
     <div class="user-update-info-background-blur" id="update-info-modal">
       <div class="user-info-update-fixed">
         <h2 class="modal-heading">Update User Information</h2>
@@ -125,50 +127,85 @@
           <div class="border-bottom"></div>
           <div class="tasks-container" id="live-task-001">
             <% liveTasks.forEach(task => { %>
-            <div class="task-card">
+            <div class="task-card" data-task-id="<%= task._id %>">
               <div class="task-card-heading">
-                <p><%= task.title %></p>
+                <p class="task-title"><%= task.title %></p>
+                <i
+                  class="ri-delete-bin-5-line delete-btn"
+                  title="Delete Task"
+                ></i>
               </div>
               <div class="task-card-content">
                 <ul class="task-list">
                   <% task.content.forEach(ele => { %>
-                  <li class="task-item"><%= ele %></li>
+                  <li class="task-item">
+                    <span><%= ele %></span>
+                    <i
+                      class="ri-delete-bin-5-line delete-btn"
+                      title="Delete Task Content"
+                    ></i>
+                  </li>
                   <% }) %>
                 </ul>
               </div>
             </div>
+
             <% }) %>
           </div>
+
           <div class="tasks-container" id="Completed-task-002">
             <% completeTasks.forEach(task => { %>
-            <div class="task-card">
+            <div class="task-card" data-task-id="<%= task._id %>">
               <div class="task-card-heading">
-                <p><%= task.title %></p>
+                <p class="task-title"><%= task.title %></p>
+                <i
+                  class="ri-delete-bin-5-line delete-btn"
+                  title="Delete Task"
+                ></i>
               </div>
               <div class="task-card-content">
                 <ul class="task-list">
                   <% task.content.forEach(ele => { %>
-                  <li class="task-item"><%= ele %></li>
+                  <li class="task-item">
+                    <span><%= ele %></span>
+                    <i
+                      class="ri-delete-bin-5-line delete-btn"
+                      title="Delete Task Content"
+                    ></i>
+                  </li>
                   <% }) %>
                 </ul>
               </div>
             </div>
+
             <% }) %>
           </div>
+
           <div class="tasks-container" id="total-task-003">
             <% user.tasks.forEach(task => { %>
-            <div class="task-card">
+            <div class="task-card" data-task-id="<%= task._id %>">
               <div class="task-card-heading">
-                <p><%= task.title %></p>
+                <p class="task-title"><%= task.title %></p>
+                <i
+                  class="ri-delete-bin-5-line delete-btn"
+                  title="Delete Task"
+                ></i>
               </div>
               <div class="task-card-content">
                 <ul class="task-list">
                   <% task.content.forEach(ele => { %>
-                  <li class="task-item"><%= ele %></li>
+                  <li class="task-item">
+                    <span><%= ele %></span>
+                    <i
+                      class="ri-delete-bin-5-line delete-btn"
+                      title="Delete Task Content"
+                    ></i>
+                  </li>
                   <% }) %>
                 </ul>
               </div>
             </div>
+
             <% }) %>
           </div>
         </section>
@@ -176,6 +213,7 @@
       <%- include('./partials/footer') %>
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
     <script src="/javascripts/profile.js"></script>
     <!-- <script src="/javascripts/trailingCursor.js"></script> -->
     <script>
@@ -199,15 +237,15 @@
           if (!file) return alert("No file selected.");
 
           // Validate file type
-          if (
-            !["image/jpeg", "image/png", "image/gif", "image/jpg"].includes(
-              file.type
-            )
-          ) {
-            return alert(
-              "Please upload a valid image file (JPEG, PNG, or GIF)."
-            );
-          }
+          // if (
+          //   !["image/jpeg", "image/png", "image/gif", "image/jpg"].includes(
+          //     file.type
+          //   )
+          // ) {
+          //   return alert(
+          //     "Please upload a valid image file (JPEG, PNG, or GIF)."
+          //   );
+          // }
 
           // Validate file size (e.g., max 2MB)
           const maxSize = 2 * 1024 * 1024 * 1024; // 2MB

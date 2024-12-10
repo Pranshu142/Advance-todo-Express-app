@@ -43,7 +43,7 @@ main {
   align-items: flex-start;
   justify-content: center;
   width: 100%;
-  gap: 30px;
+  /* gap: 30px; */
   background: rgba(0, 0, 0, 0.5); /* Black with transparency */
   border: 1px solid rgba(255, 255, 255, 0.2); /* White border with transparency */
   border-radius: 20px; /* Smooth rounded corners */
@@ -55,7 +55,7 @@ main {
 }
 
 #indicator-tag {
-  position: absolute;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -75,6 +75,7 @@ main {
 
 #date-time {
   width: 100%;
+  /* margin: auto; */
   padding-top: 10px;
   text-align: center;
   display: flex;

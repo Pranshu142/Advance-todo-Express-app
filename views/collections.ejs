@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= user.username %> Collections</title>
+    <link rel="stylesheet" href="/stylesheets/sideBarLoggedIn.css" />
     <link rel="stylesheet" href="/stylesheets/loggedInNav.css" />
     <link rel="stylesheet" href="/stylesheets/collections.css" />
     <link rel="stylesheet" href="/stylesheets/footer.css" />
@@ -23,7 +24,7 @@
   </head>
 
   <body>
-    <%- include("partials/logout") %>
+    <%- include("partials/sideBarLoggedIn") %> <%- include("partials/logout") %>
     <main>
       <section id="todays-task" class="page-1 working-area">
         <% if (todaysTasks.length <= 0) { %>
@@ -159,6 +160,7 @@
         });
       })();
     </script>
+
     <script src="/javascripts/collections.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", () => {});

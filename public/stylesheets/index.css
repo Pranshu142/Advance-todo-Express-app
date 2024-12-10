@@ -49,7 +49,7 @@ body {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.896);
   backdrop-filter: blur(6px);
-  z-index: 2000;
+  z-index: 200;
   overflow: hidden;
   transition: left 0.3s ease-in-out;
 }
@@ -65,36 +65,30 @@ body {
 .close-btn button {
   background-color: #ff3300;
   padding: 8px 15px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  border: 1px solid orange;
-  border-radius: 50px;
   color: wheat;
 }
 
 .close-btn button:hover {
   cursor: pointer;
-  box-shadow: 0px 0px 10px rgb(255, 136, 0);
-  transition: box-shadow 0.1s ease-in-out;
 }
 
 .side-bar .side-bar-menu {
   display: flex;
-  width: fit-content;
+  width: max-content;
   margin-top: 10%;
   justify-content: center;
   align-items: center;
 }
 
-.side-bar-menu ul {
+.menu-list {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  gap: 20px;
+  gap: 5px;
   flex-direction: column;
 }
 
-.side-bar-menu ul .menu-with-icon {
+.menu-with-icon {
   padding: 10px 10px;
   width: 100%;
   display: flex;
@@ -102,17 +96,29 @@ body {
   gap: 10px;
   transition: background-color 0.1s ease-in-out;
 }
-
+.menu-with-icon:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+}
 .menu-with-icon .menu-name a {
-  font-size: 1.1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: wheat;
+  text-decoration: none;
+}
+i {
+  color: white;
+}
+.menu-name {
+  font-size: 1rem;
+  display: flex;
   font-weight: 700;
   color: wheat;
   text-decoration: none;
 }
 
-.menu-with-icon:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 5px;
+.menu-with-icon:hover .menu-name {
+  display: block;
 }
 
 .side-bar-shadow {
@@ -122,7 +128,7 @@ body {
   height: 100%;
   width: 100%;
   background-color: rgba(24, 22, 22, 0.529);
-  z-index: 1999;
+  z-index: 199;
   transition: left 0.3s ease-in-out;
 }
 
@@ -155,7 +161,7 @@ nav {
   align-items: center;
   /* background-color: rgba(55, 47, 47, 0.26); */
   position: fixed;
-  z-index: 1001;
+  z-index: 100;
   transition: background-color 0.3s ease-in-out;
   backdrop-filter: blur(5px);
   transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -176,7 +182,6 @@ nav {
   padding: 10px;
   height: 95px;
   position: relative;
-  z-index: 1;
 }
 
 .company-logo {
@@ -241,7 +246,6 @@ nav {
 #rightNav .menu-icon {
   display: none;
   position: relative;
-  z-index: 1;
 }
 
 #rightNav .menu-icon:hover {
